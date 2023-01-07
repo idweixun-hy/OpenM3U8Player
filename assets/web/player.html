@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>开源视频播放器</title>
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="player.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="player.css" />
+</head>
+
+<body>
+    <script type="text/javascript">
+        $.extend({
+            getUrlVars: function(){
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+            }
+            return vars;
+            },
+            getUrlVar: function(name){
+            return $.getUrlVars()[name]?$.getUrlVars()[name]:"";
+            }
+        });
+
+        var url = decodeURIComponent($.getUrlVar('url'));
+        var play = { "auto": true, "live": false, "trys": "0", "seek": "0", "take": vfed.cookie.put(url), "urls": url, "jump": "", "logo": "", "pics": "loading.gif" };
+        var title = $.getUrlVar('title');
+        $('title').html(title);
+    </script>
+    <div id="video" style="width:100%;height:100%"></div>
+    <div class="play"></div>
+    <div class="total">
+        <span class="peer"></span>
+        <span class="load"></span>
+        <span class="line"></span>
+    </div>
+    <link rel="stylesheet" type="text/css" href="dplayer.css" />
+    <script src="flv.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="p2p.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="hls.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="dplayer.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        vfed.player.eplayer(play.auto, play.live, play.trys, play.seek, play.take, play.urls, play.jump, play.logo, play.pics);
+    </script>
+    <span style="display: none;"></span>
+</body>
+
+</html>
